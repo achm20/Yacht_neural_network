@@ -15,12 +15,12 @@ def sample_loop(batch_size):
     for sample in range (1, runs):
         tf.keras.backend.clear_session()
         rmse = ynn.ynn(batch_size = batch_size)
-        sample_list.append(sample)
         rmse_list.append(rmse)
-    return sample_list, rmse_list
+    return rmse_list
 
 
-sample_loop()
-print(sample_list, rmse_list)
+if __name__ == '__main__':
+    sample_loop()
+    print(rmse_list)
 
 
