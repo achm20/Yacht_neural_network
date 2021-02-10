@@ -46,20 +46,18 @@ def ynn(batch_size):
 
     history = ann.fit(X_train, y_train, batch_size = batch_size, epochs = inputs.epochs,
                       callbacks = [callback])
-    print(len(history.history['loss']))
+
+    n_epochs = len(history.history['loss'])
+    print(n_epochs)
 
     y_pred = ann.predict(X_test)
     results = np.concatenate((np.reshape(y_pred, (len(y_pred), 1)), np.reshape(y_test, (len(y_test),
                                                                                        1))),axis = 1)
-    #print(results)
 
     rmse = []
     for row in range(0, len(y_pred)):
         rmse.append(np.sqrt((results[row, 0] - results[row, 1])**2))
 
-    #print(rmse)
     rmse = sum(rmse)
-    return rmse
-
-    #print(rmse)
+    return rmse, n_epochs
 
