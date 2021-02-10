@@ -16,6 +16,7 @@ def probability_density_plotter(batch_size, rmse_list):
     plt.savefig('Plots/Batch size ' + str(batch_size) + ' probability density plot', format =
     'png')
 
+
 def histogram_plotter(batch_size, rmse_list):
     plt.figure(figsize = (9, 7))
     plt.hist(rmse_list, bins = 20)
