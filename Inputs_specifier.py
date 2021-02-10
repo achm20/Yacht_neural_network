@@ -11,6 +11,7 @@ def master_method():
         rmse_list = pl.sample_loop(batch_size = batch_size)
         pdp.probability_plotter(batch_size = batch_size, rmse_list = rmse_list)
 
+
 if __name__ == '__main__':
     master_method()
 

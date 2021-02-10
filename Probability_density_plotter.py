@@ -7,7 +7,8 @@ from matplotlib import pyplot as plt
 def probability_plotter(batch_size, rmse_list):
     kde = gaussian_kde(rmse_list)
     probability = np.linspace(min(rmse_list), max(rmse_list), 100)
-    fig, sp = plt.subplots(1, 2)
+    fig, sp = plt.subplots(1, 2, figsize = (23, 13))
+
     sp[0].plot(probability, kde(probability), 'tab:green')
     sp[0].set_title('Probability density plot of sum RMSE using Gaussian kernel')
     sp[0].set(xlabel = 'sum RMS error', ylabel = 'Probability')
