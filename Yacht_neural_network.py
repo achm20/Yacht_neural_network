@@ -33,7 +33,7 @@ callback = tf.keras.callbacks.EarlyStopping(monitor = 'loss', patience = inputs.
 
 
 # Building the ANN #
-def ynn():
+def ynn(batch_size):
 
     ann = tf.keras.models.Sequential()
 
@@ -44,7 +44,7 @@ def ynn():
     # Training the ANN #
     ann.compile(optimizer = 'adam', loss = 'huber')
 
-    history = ann.fit(X_train, y_train, batch_size = inputs.batch_size, epochs = inputs.epochs,
+    history = ann.fit(X_train, y_train, batch_size = batch_size, epochs = inputs.epochs,
                       callbacks = [callback])
     print(len(history.history['loss']))
 
