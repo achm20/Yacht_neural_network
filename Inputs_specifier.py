@@ -1,10 +1,10 @@
 # Specify inputs #
-patience = 2
+patience = 3
 epochs = 1000
 runs = 10
 starting_batch_size = 2
 batch_size_step = 2
-end_batch_size = 8
+end_batch_size = 6
 
 
 def master_method():

@@ -60,7 +60,7 @@ def ynn(batch_size):
         rmse.append((results[row, 0] - results[row, 1])**2)
 
     rmse = np.sqrt(sum(rmse))
-    #print(rmse)
+    print(rmse)
     return rmse, n_epochs
 
 
