@@ -53,11 +53,16 @@ def ynn(batch_size):
     y_pred = ann.predict(X_test)
     results = np.concatenate((np.reshape(y_pred, (len(y_pred), 1)), np.reshape(y_test, (len(y_test),
                                                                                        1))),axis = 1)
+    #print(results)
 
     rmse = []
     for row in range(0, len(y_pred)):
-        rmse.append(np.sqrt((results[row, 0] - results[row, 1])**2))
+        rmse.append((results[row, 0] - results[row, 1])**2)
 
-    rmse = sum(rmse)
+    rmse = np.sqrt(sum(rmse))
+    #print(rmse)
     return rmse, n_epochs
 
+
+if __name__ == '__main__':
+    ynn(batch_size = 8)

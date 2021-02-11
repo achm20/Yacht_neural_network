@@ -9,9 +9,11 @@ def probability_density_plotter(batch_size, rmse_list):
     probability = np.linspace(min(rmse_list), max(rmse_list), 100)
     plt.figure(figsize = (9, 7))
     plt.plot(probability, kde(probability), color = 'tab:green')
-    plt.title('Probability Density Plot of Sum RMS Error Using Gaussian Kernels - Batch Size ' +
+    plt.title('Probability Density Plot of Root Sum of Squared Error Using Gaussian Kernels - '
+              'Batch '
+              'Size ' +
               str(batch_size))
-    plt.xlabel('Sum RMS error')
+    plt.xlabel('Root sum of squared error')
     plt.ylabel('Probability density')
     plt.savefig('Plots/Batch size ' + str(batch_size) + ' probability density plot', format =
     'png')
@@ -20,8 +22,8 @@ def probability_density_plotter(batch_size, rmse_list):
 def histogram_plotter(batch_size, rmse_list):
     plt.figure(figsize = (9, 7))
     plt.hist(rmse_list, bins = 20)
-    plt.title('Histogram Plot of Sum RMS Error - Batch Size ' + str(batch_size))
-    plt.xlabel('Sum RMS error')
+    plt.title('Histogram Plot of Root Sum of Squared Error - Batch Size ' + str(batch_size))
+    plt.xlabel('Root sum of squared error')
     plt.ylabel('Number of neural network instances')
     plt.savefig('Plots/Batch size ' + str(batch_size) + ' histogram plot', format = 'png')
 
