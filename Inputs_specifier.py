@@ -15,8 +15,7 @@ def master_method():
         pdp.histogram_plotter(batch_size = batch_size, rmse_list = rmse_list)
         n_epochs_list = sample_loop_result[1]
         de.table_creator(batch_size = batch_size, rmse_list = rmse_list, n_epochs_list = n_epochs_list)
-        del rmse_list
-        del n_epochs_list
+        pl.reset_list()
 
 
 if __name__ == '__main__':

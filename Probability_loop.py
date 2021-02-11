@@ -4,7 +4,6 @@ import Yacht_neural_network as ynn
 
 # Initialise lists and import ynn
 rmse_list = []
-sample_list = []
 n_epochs_list = []
 
 # Loop predicting for x number of runs
@@ -22,6 +21,12 @@ def sample_loop(batch_size):
         rmse_list.append(rmse)
         n_epochs_list.append(n_epochs)
     return rmse_list, n_epochs_list
+
+
+def reset_list():
+    if len(rmse_list) == inputs.runs:
+        rmse_list.clear()
+        n_epochs_list.clear()
 
 
 if __name__ == '__main__':
