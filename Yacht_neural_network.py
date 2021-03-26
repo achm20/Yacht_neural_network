@@ -11,7 +11,7 @@ dataset = pd.read_csv('yacht_hydrodynamics.csv')
 X = dataset.iloc[:, :-1].values
 y = dataset.iloc[:, -1].values
 
-# Splitting the dataset into training set and test set #
+# Splitting the dataset into training, test and validation sets #
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 1)
 X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size = 0.125, random_state
@@ -28,13 +28,17 @@ X_val = scaler.transform(X_val)
 # Import Inputs_specifier values #
 import Inputs_specifier as inputs
 
-# This callback will stop training when there is no improvement in loss for 10 consecutive epochs
+# This callback will stop training when there is no improvement in loss for patience consecutive
+# epochs
 callback = tf.keras.callbacks.EarlyStopping(monitor = 'loss', patience = inputs.patience)
 
 
-# Building the ANN #
+# Define function called ynn that creates an instance of the required ANN architecture, trains the
+# ANN, prints number of epochs for training, tests the ANN on test data, prints the rmse of ANN
+# during testing and returns rmse and n_epochs #
 def ynn(batch_size):
 
+    # Building the ANN architecture #
     ann = tf.keras.models.Sequential()
 
     ann.add(tf.keras.layers.Dense(units = 6, activation = 'relu'))
@@ -43,25 +47,28 @@ def ynn(batch_size):
 
     # Training the ANN #
     ann.compile(optimizer = 'adam', loss = 'huber')
-
     history = ann.fit(X_train, y_train, batch_size = batch_size, epochs = inputs.epochs,
                       callbacks = [callback])
 
     n_epochs = len(history.history['loss'])
-    print(n_epochs)
+    # print number of epochs used to train ANN
+    print('number of epochs =', n_epochs)
 
+    # Testing the ANN using test set #
     y_pred = ann.predict(X_test)
     results = np.concatenate((np.reshape(y_pred, (len(y_pred), 1)), np.reshape(y_test, (len(y_test),
                                                                                        1))),axis = 1)
-    #print(results)
-
+    # RMSE calculation #
     rmse = []
     for row in range(0, len(y_pred)):
         rmse.append((results[row, 0] - results[row, 1])**2)
 
-    rmse = np.sqrt(sum(rmse))
-    print(rmse)
+    rmse = np.sqrt(sum(rmse)/len(y_pred))
+    # print rmse for current ANN
+    print('rmse =', rmse)
     return rmse, n_epochs
+
+# If statement if this script is run directly #
 
 
 if __name__ == '__main__':

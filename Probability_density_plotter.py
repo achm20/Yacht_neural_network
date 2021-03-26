@@ -1,7 +1,9 @@
-# Import libraries
+# Import libraries #
 import numpy as np
 from scipy.stats.kde import gaussian_kde
 from matplotlib import pyplot as plt
+
+# Probability density plotter function using rmse_list data #
 
 
 def probability_density_plotter(batch_size, rmse_list):
@@ -9,23 +11,27 @@ def probability_density_plotter(batch_size, rmse_list):
     probability = np.linspace(min(rmse_list), max(rmse_list), 100)
     plt.figure(figsize = (9, 7))
     plt.plot(probability, kde(probability), color = 'tab:green')
-    plt.title('Probability Density Plot of Root Sum of Squared Error Using Gaussian Kernels - '
+    plt.title('Probability Density Plot of Root Mean Square Error Using Gaussian Kernels - '
               'Batch '
               'Size ' +
               str(batch_size))
-    plt.xlabel('Root sum of squared error')
+    plt.xlabel('Root mean square error')
     plt.ylabel('Probability density')
     plt.savefig('Plots/Batch size ' + str(batch_size) + ' probability density plot', format =
     'png')
+
+# Histogram plotter function using rmse_list data #
 
 
 def histogram_plotter(batch_size, rmse_list):
     plt.figure(figsize = (9, 7))
     plt.hist(rmse_list, bins = 20)
-    plt.title('Histogram Plot of Root Sum of Squared Error - Batch Size ' + str(batch_size))
-    plt.xlabel('Root sum of squared error')
+    plt.title('Histogram Plot of Root Mean Square Error - Batch Size ' + str(batch_size))
+    plt.xlabel('Root mean square error')
     plt.ylabel('Number of neural network instances')
     plt.savefig('Plots/Batch size ' + str(batch_size) + ' histogram plot', format = 'png')
+
+# Test case #
 
 
 if __name__ == '__main__':
