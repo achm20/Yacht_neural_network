@@ -11,19 +11,19 @@ dataset = pd.read_csv('yacht_hydrodynamics.csv')
 X = dataset.iloc[:, :-1].values
 y = dataset.iloc[:, -1].values
 
-# Splitting the dataset into training, test and validation sets #
+# Splitting the dataset into training, validation and test sets #
 from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 1)
-X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size = 0.125, random_state
-= 1)
-# training size = 0.7, test size = 0.2, validation size = 0.1
+X_train, X_val, y_train, y_val = train_test_split(X, y, test_size = 0.2, random_state = 1)
+X_train, X_test, y_train, y_test = train_test_split(X_train, y_train, test_size = 0.125,
+                                                    random_state = 1)
+# training size = 0.7, validation size = 0.2, test size = 0.1
 
 # Feature scaling #
 from sklearn.preprocessing import StandardScaler
 scaler = StandardScaler()
 X_train = scaler.fit_transform(X_train)
-X_test = scaler.transform(X_test)
 X_val = scaler.transform(X_val)
+X_test = scaler.transform(X_test)
 
 # Import Inputs_specifier values #
 import Inputs_specifier as inputs
@@ -41,8 +41,11 @@ def ynn(batch_size):
     # Building the ANN architecture #
     ann = tf.keras.models.Sequential()
 
+    # first hidden layer
+    ann.add(tf.keras.layers.Dense(units = 6, input_dim = 6, activation = 'relu'))
+    # second hidden layer
     ann.add(tf.keras.layers.Dense(units = 6, activation = 'relu'))
-    ann.add(tf.keras.layers.Dense(units = 6, activation = 'relu'))
+    # output layer
     ann.add(tf.keras.layers.Dense(units = 1))
 
     # Training the ANN #
@@ -54,9 +57,9 @@ def ynn(batch_size):
     # print number of epochs used to train ANN
     print('number of epochs =', n_epochs)
 
-    # Testing the ANN using test set #
-    y_pred = ann.predict(X_test)
-    results = np.concatenate((np.reshape(y_pred, (len(y_pred), 1)), np.reshape(y_test, (len(y_test),
+    # Assess performance using validation set #
+    y_pred = ann.predict(X_val)
+    results = np.concatenate((np.reshape(y_pred, (len(y_pred), 1)), np.reshape(y_val, (len(y_val),
                                                                                        1))),axis = 1)
     # RMSE calculation #
     rmse = []

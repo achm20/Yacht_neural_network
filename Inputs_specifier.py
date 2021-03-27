@@ -1,7 +1,7 @@
 # Specify inputs #
 patience = 5
 epochs = 1000
-runs = 25
+runs = 50
 end_batch_size = 100
 batch_size_values = [1, 2, 4, 6, 8, 10, 15, 20, 30, 40, 50, end_batch_size]
 
