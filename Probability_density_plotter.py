@@ -8,9 +8,10 @@ from matplotlib import pyplot as plt
 
 def probability_density_plotter(batch_size, rmse_list):
     kde = gaussian_kde(rmse_list)
-    probability = np.linspace(min(rmse_list), max(rmse_list), 100)
+    probability = np.linspace(0, max(rmse_list) + 2, 100)
     plt.figure(figsize = (9, 7))
     plt.plot(probability, kde(probability), color = 'tab:green')
+    plt.xlim([0, 4])
     plt.title('Probability Density Plot of Root Mean Square Error Using Gaussian Kernels - '
               'Batch '
               'Size ' +
@@ -26,6 +27,7 @@ def probability_density_plotter(batch_size, rmse_list):
 def histogram_plotter(batch_size, rmse_list):
     plt.figure(figsize = (9, 7))
     plt.hist(rmse_list, bins = 20)
+    plt.xlim([0, 4])
     plt.title('Histogram Plot of Root Mean Square Error - Batch Size ' + str(batch_size))
     plt.xlabel('Root mean square error')
     plt.ylabel('Number of neural network instances')
