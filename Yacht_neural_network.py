@@ -49,8 +49,7 @@ def ynn(batch_size):
 
     # Training the ANN #
     ann.compile(optimizer = 'adam', loss = 'huber')
-    history = ann.fit(X_train, y_train, batch_size = batch_size, epochs = inputs.epochs,
-                      callbacks = [callback])
+    history = ann.fit(X_train, y_train, batch_size = batch_size, epochs = inputs.epochs, callbacks = [callback])
 
     n_epochs = len(history.history['loss'])
     # print number of epochs used to train ANN
@@ -58,8 +57,7 @@ def ynn(batch_size):
 
     # Assess performance using validation set #
     y_pred = ann.predict(X_val)
-    results = np.concatenate((np.reshape(y_pred, (len(y_pred), 1)), np.reshape(y_val, (len(y_val),
-                                                                                       1))),axis = 1)
+    results = np.concatenate((np.reshape(y_pred, (len(y_pred), 1)), np.reshape(y_val, (len(y_val), 1))),axis = 1)
     # RMSE calculation #
     rmse = []
     for row in range(0, len(y_pred)):
@@ -84,8 +82,7 @@ def ynn_final(batch_size):
 
     # Training the ANN #
     ann.compile(optimizer = 'adam', loss = 'huber')
-    history = ann.fit(X_train, y_train, batch_size = batch_size, epochs = inputs.epochs,
-                      callbacks = [callback])
+    history = ann.fit(X_train, y_train, batch_size = batch_size, epochs = inputs.epochs, callbacks = [callback])
 
     n_epochs = len(history.history['loss'])
     # print number of epochs used to train ANN
@@ -93,9 +90,7 @@ def ynn_final(batch_size):
 
     # Assess performance using validation set #
     y_pred_final = ann.predict(X_test)
-    results = np.concatenate((np.reshape(y_pred_final, (len(y_pred_final), 1)), np.reshape(y_test,
-                                                                                  (len(y_test),
-                                                                                       1))),axis = 1)
+    results = np.concatenate((np.reshape(y_pred_final, (len(y_pred_final), 1)), np.reshape(y_test, (len(y_test), 1))),axis = 1)
     print(results)
     # RMSE calculation #
     rmse = []
